@@ -4,16 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Monolog\Level;
 
 class LevelModel extends Model
 {
-    protected $table = 'm_level';        
-    protected $primaryKey = 'level_id'; 
+    use HasFactory;
 
-
-    public function Level():BelongsTo {
-        return $this->belongsTo(LevelModel::class);
-    }
+    protected $table = 'm_level';
+    protected $primaryKey = 'level_id';
+    protected $fillable = ['level_id', 'level_kode', 'level_nama'];
 }
