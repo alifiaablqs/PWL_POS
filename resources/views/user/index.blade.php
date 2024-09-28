@@ -59,6 +59,9 @@
               "url": "{{ url('user/list') }}", 
               "dataType": "json", 
               "type": "POST" ,
+              "headers": {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
               "data": function (d){
                 d.level_id = $('#level_id').val();
               }

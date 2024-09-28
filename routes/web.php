@@ -1,12 +1,11 @@
 <?php
 
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\WelcomeComtroller;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', [WelcomeComtroller::class, 'index']);
+Route::get('/', [WelcomeController::class, 'index']);
 Route::group(['prefix' => 'user'], function(){
     Route::get('/', [UserController::class, 'index']);
     Route::post('/list', [UserController::class, 'list']);
