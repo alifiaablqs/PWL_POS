@@ -6,6 +6,8 @@
         <h3 class="card-title">{{ $page->title }}</h3> 
         <div class="card-tools"> 
           <a class="btn btn-sm btn-primary mt-1" href="{{ url('user/create') }}">Tambah</a> 
+          <button onclick="modalAction(`{{ url('/user/create_ajax') }}`)" class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
+
         </div> 
       </div> 
       <div class="card-body"> 
@@ -28,6 +30,8 @@
                 </select>
                 <small class="form-text text-muted">Level Pengguna</small>
               </div>
+
+
             </div>
           </div>
         </div>
@@ -44,56 +48,75 @@
       </table> 
     </div> 
   </div> 
-@endsection 
+
+  <!-- Modal -->
+  <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog"
+   data- backdrop="static" data-keyboard="false" data-width="75%" aria-hidden="true"></div>
+
+@endsection
  
 @push('css') 
+<style>
+    .dataTables_filter {
+      float: right;
+      display: flex; /* Membuat label dan input dalam satu baris */
+      align-items: center; /* Meluruskan label dan input secara vertikal */
+    }
+    
+    .dataTables_filter label {
+      margin-right: 10px; /* Memberi jarak antara label dan input */
+      text-align: left; /* Meluruskan teks "Search:" secara kiri */
+    }
+    
+    .dataTables_filter input {
+      margin-left: 0; /* Menghilangkan margin kiri pada input agar sejajar dengan label */
+    }
+  </style>
 @endpush 
  
 @push('js') 
   <script> 
-    $(document).ready(function() { 
-      var dataUser = $('#table_user').DataTable({ 
-          // serverSide: true, jika ingin menggunakan server side processing 
+  function modalAction(url = '') {
+    $('#myModal').load(url, function() {
+      $('#myModal').modal('show');
+    });
+  }
+
+  var datauser;
+  $(document).ready(function() { 
+      dataUser = $('#table_user').DataTable({ 
           serverSide: true,      
           ajax: { 
               "url": "{{ url('user/list') }}", 
               "dataType": "json", 
-              "type": "POST" ,
+              "type": "POST",
               "headers": {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    },
-              "data": function (d){
-                d.level_id = $('#level_id').val();
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
+              "data": function (d) {
+                  d.level_id = $('#level_id').val();
               }
           }, 
           columns: [ 
             { 
-              // nomor urut dari laravel datatable addIndexColumn() 
               data: "DT_RowIndex",             
               className: "text-center", 
               orderable: false, 
               searchable: false     
             },{ 
               data: "username",                
-              className: "", 
-              // orderable: true, jika ingin kolom ini bisa diurutkan  
               orderable: true,     
-              // searchable: true, jika ingin kolom ini bisa dicari 
               searchable: true     
             },{ 
               data: "nama",                
-              className: "", 
               orderable: true,     
               searchable: true     
             },{ 
-              // mengambil data level hasil dari ORM berelasi 
               data: "level.level_nama",                
-              className: "", 
               orderable: false,     
               searchable: false     
             },{ 
               data: "aksi",                
-              className: "", 
               orderable: false,     
               searchable: false     
             } 
@@ -102,7 +125,7 @@
 
       $('#level_id').on('change', function() {
         dataUser.ajax.reload();
-      })
+      });
     }); 
   </script> 
-@endpush  
+@endpush 
