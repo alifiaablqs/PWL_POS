@@ -45,6 +45,22 @@
 @endsection 
 
 @push('css') 
+<style>
+    .dataTables_filter {
+      float: right;
+      display: flex; /* Membuat label dan input dalam satu baris */
+      align-items: center; /* Meluruskan label dan input secara vertikal */
+    }
+    
+    .dataTables_filter label {
+      margin-right: 10px; /* Memberi jarak antara label dan input */
+      text-align: left; /* Meluruskan teks "Search:" secara kiri */
+    }
+    
+    .dataTables_filter input {
+      margin-left: 0; /* Menghilangkan margin kiri pada input agar sejajar dengan label */
+    }
+  </style>
 @endpush 
 
 @push('js') 
