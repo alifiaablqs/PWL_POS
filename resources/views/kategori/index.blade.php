@@ -1,112 +1,89 @@
-@extends('layouts.template') 
+@extends('layouts.template')
 
-@section('content') 
-  <div class="card card-outline card-primary"> 
-      <div class="card-header"> 
-        <h3 class="card-title">{{ $page->title }}</h3> 
-        <div class="card-tools"> 
-          <a class="btn btn-sm btn-primary mt-1" href="{{ url('kategori/create') }}">Tambah</a> 
-        </div> 
-      </div> 
-      <div class="card-body"> 
-        @if (session('success'))
-            <div class="alert alert-success">{{ session('success') }} </div>
-        @endif
-        @if (session('error'))
-            <div class="alert alert-danger">{{ session('error') }} </div>
-        @endif
-        <div class="row">
-          <div class="col-md-12">
-            <div class="form-group row">
-              <label class="col-1 control-label col-form-label">Filter: </label>
-              <div class="col-3">
-                <select class="form-control" id="kategori_id" name="kategori_id" required>
-                  <option value="">- Semua -</option>
-                  @foreach ($kategori as $item)
-                    <option value="{{ $item->kategori_id }}">{{ $item->kategori_nama }}</option>
-                  @endforeach
-                </select>
-              </div>
+@section('content')
+    <div class="card card-outline card-primary">
+        <div class="card-header">
+            <h3 class="card-title">{{ $page->title }}</h3>
+            <div class="card-tools">
+                <a href="{{ url('kategori/create') }}" class="btn btn-sm btn-primary mt-1">Tambah</a>
+                <button onclick="modalAction(`{{ url('/kategori/create_ajax') }}`)" class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
             </div>
-          </div>
         </div>
-        <table class="table table-bordered table-striped table-hover table-sm" id="table_user"> 
-          <thead> 
-            <tr>
-                <th>No</th>
-                <th>Kode</th>
-                <th>Nama Kategori</th>
-                <th>Aksi</th>
-            </tr> 
-          </thead> 
-      </table> 
-    </div> 
-  </div> 
-@endsection 
+        <div class="card-body">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('errror') }}
+                </div>
+            @endif
+            <table class="table table-bordered table-striped table-hover table-sm" id="table_kategori">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>kategori kode</th>
+                        <th>kategori Nama</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div id="myModal" class="modal fade animate shake" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" data-width="75%" aria-hidden="true"></div>
+@endsection
 
-@push('css') 
-<style>
-    .dataTables_filter {
-      float: right;
-      display: flex; /* Membuat label dan input dalam satu baris */
-      align-items: center; /* Meluruskan label dan input secara vertikal */
-    }
-    
-    .dataTables_filter label {
-      margin-right: 10px; /* Memberi jarak antara label dan input */
-      text-align: left; /* Meluruskan teks "Search:" secara kiri */
-    }
-    
-    .dataTables_filter input {
-      margin-left: 0; /* Menghilangkan margin kiri pada input agar sejajar dengan label */
-    }
-  </style>
-@endpush 
+@push('css')
+@endpush
 
-@push('js') 
-  <script> 
-    $(document).ready(function() { 
-      var dataUser = $('#table_user').DataTable({ 
-          // serverSide: true, jika ingin menggunakan server side processing 
-          serverSide: true,      
-          ajax: { 
-              "url": "{{ url('kategori/list') }}", 
-              "dataType": "json", 
-              "type": "POST" ,
-              "data": function (d){
-                d.kategori_id = $('#kategori_id').val();
-              }
-          }, 
-          columns: [ 
-            { 
-              // nomor urut dari laravel datatable addIndexColumn() 
-              data: "DT_RowIndex",             
-              className: "text-center", 
-              orderable: false, 
-              searchable: false     
-            },{ 
-              data: "kategori_kode",                
-              className: "", 
-              // orderable: true, jika ingin kolom ini bisa diurutkan  
-              orderable: true,     
-              // searchable: true, jika ingin kolom ini bisa dicari 
-              searchable: true     
-            },{ 
-              data: "kategori_nama",                
-              className: "", 
-              orderable: true,     
-              searchable: true     
-            },{ 
-              data: "aksi",                
-              className: "", 
-              orderable: false,     
-              searchable: false     
-            } 
-          ] 
-      }); 
-      $('#kategori_id').on('change', function() {
-        dataUser.ajax.reload();
-      })
-    }); 
-  </script> 
-@endpush  
+@push('js')
+    <script>
+        function modalAction(url = '') {
+            $('#myModal').load(url, function() {
+                $('#myModal').modal('show');
+            });
+        }
+        
+        var dataKategori;
+        $(document).ready(function() {
+            dataKategori = $('#table_kategori').DataTable({
+                // serverSide: true, jika ingin menggunakan server side processing
+                serverSide: true,
+                ajax: {
+                    "url": "{{ url('kategori/list') }}",
+                    "dataType" : "json",
+                    "type": "POST",
+                },
+                columns: [
+                    {
+                        // nomor urut dari laravel datatable addIndexColumn()
+                        data: "DT_RowIndex",
+                        ClassName: "text-center",
+                        orderable: false,
+                        searchable: false
+                    },{
+                        data: "kategori_kode",
+                        ClassName: "",
+                        // orderable: true, jika ingin kolom ini bisa diurutkan
+                        orderable: true,
+                        // searchable: true, jika ingin kolom ini bisa dicari
+                        searchable: true
+                    },{
+                        // mengambil data kategori hasil dari ORM berelasi
+                        data: "kategori_nama",
+                        ClassName: "",
+                        orderable: true,
+                        searchable: true
+                    },{
+                        data: "aksi",
+                        ClassName: "",
+                        orderable: false,
+                        searchable: false
+                    }
+                ]
+            });
+        });
+    </script>
+@endpush
