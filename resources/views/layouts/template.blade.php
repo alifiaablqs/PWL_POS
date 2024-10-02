@@ -79,6 +79,7 @@
 <!--jquesry-validation-->
 <script src="{{ asset('adminlte/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+
 <!--SweetAlert-->
 <script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 <!--Admin LTE App-->
