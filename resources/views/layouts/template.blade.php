@@ -8,7 +8,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}"> 
 
     <!--Google Font:Source Sans Pro-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans-Pro:300,400,400i,700&display=fallback">
+    <style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap');
+</style>
+
     <!--Font Awesome-->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     <!--DataTables-->

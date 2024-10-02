@@ -72,6 +72,7 @@ Route::group(['prefix' => 'supplier'], function(){
     Route::post('/', [SupplierController::class, 'store']);
     Route::get('/create_ajax', [SupplierController::class, 'create_ajax']); // menampilkan halaman form tambah supplier Ajax
     Route::post('/ajax', [SupplierController::class, 'store_ajax']); // menyimpan data supplier baru Ajax
+    Route::post('supplier/ajax', [SupplierController::class, 'handleAjaxRequest']);
     Route::get('/{id}', [SupplierController::class, 'show']);
     Route::get('/{id}/edit', [SupplierController::class, 'edit']);
     Route::get('/{id}/edit_ajax', [SupplierController::class, 'edit_ajax']); // menampilkan halaman form edit supplier Ajax

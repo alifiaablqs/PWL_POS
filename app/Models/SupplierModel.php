@@ -10,5 +10,7 @@ class SupplierModel extends Model
     use HasFactory;
     protected $table = 'm_supplier';
     protected $primaryKey = 'supplier_id';
-    protected $fillable = ['supplier_id', 'supplier_kode', 'supplier_nama', 'supplier_alamat'];
+    public $timestamps = false; // jika tabel tidak menggunakan created_at dan updated_at
+
+    protected $fillable = ['supplier_kode', 'supplier_nama', 'supplier_alamat'];
 }
