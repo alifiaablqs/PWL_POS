@@ -94,7 +94,7 @@ ack">
                     },
                     password: {
                         required: true,
-                        minlength: 6,
+                        minlength: 5,
                         maxlength: 20
                     }
                 },
