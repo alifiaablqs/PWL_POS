@@ -15,7 +15,7 @@ Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'postlogin']);
 Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
 
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['auth'])->group(function(){      //artinya semua route di dalam group ini harus login dulu
 
         Route::get('/', [WelcomeController::class, 'index']);
         Route::group(['prefix' => 'user'], function(){
@@ -36,22 +36,26 @@ Route::middleware(['auth'])->group(function(){
     });
 
     //m_level
-    Route::group(['prefix' => 'level'], function(){
-        Route::get('/', [LevelController::class, 'index']);
-        Route::post('/list', [LevelController::class, 'list']);
-        Route::get('/create', [LevelController::class, 'create']);
-        Route::post('/', [LevelController::class, 'store']);
-        Route::get('/create_ajax', [LevelController::class, 'create_ajax']); // menampilkan halaman form tambah level Ajax
-        Route::post('/ajax', [LevelController::class, 'store_ajax']); // menyimpan data level baru Ajax
-        Route::get('/{id}', [LevelController::class, 'show']);
-        Route::get('/{id}/edit', [LevelController::class, 'edit']);
-        Route::put('/{id}', [LevelController::class, 'update']);
-        Route::get('/{id}/edit_ajax', [LevelController::class, 'edit_ajax']);
-        Route::put('/{id}/update_ajax', [LevelController::class, 'update_ajax']);
-        Route::get('/{id}/delete_ajax', [LevelController::class, 'confirm_ajax']);
-        Route::delete('/{id}/delete_ajax', [LevelController::class, 'delete_ajax']);
-        Route::delete('/{id}', [LevelController::class, 'destroy']);
-    });
+     //route level
+
+   // artinya semua route di dalam group ini harus punya role ADM (Administrator)
+Route::middleware(['authorize:ADM'])->group(function () {
+    Route::get('/', [LevelController::class, 'index']);
+    Route::post('/list', [LevelController::class, 'list']);
+    Route::get('/create', [LevelController::class, 'create']);
+    Route::post('/', [LevelController::class, 'store']);
+    Route::get('/create_ajax', [LevelController::class, 'create_ajax']); // menampilkan halaman form tambah level Ajax
+    Route::post('/ajax', [LevelController::class, 'store_ajax']); // menyimpan data level baru Ajax
+    Route::get('/{id}', [LevelController::class, 'show']);
+    Route::get('/{id}/edit', [LevelController::class, 'edit']);
+    Route::put('/{id}', [LevelController::class, 'update']);
+    Route::get('/{id}/edit_ajax', [LevelController::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [LevelController::class, 'update_ajax']);
+    Route::get('/{id}/delete_ajax', [LevelController::class, 'confirm_ajax']);
+    Route::delete('/{id}/delete_ajax', [LevelController::class, 'delete_ajax']);
+    Route::delete('/{id}', [LevelController::class, 'destroy']);
+});
+
 
     //m_kategori
     Route::group(['prefix' => 'kategori'], function(){
