@@ -116,6 +116,7 @@ Route::middleware(['auth'])->group(function() { // Semua route di bawah ini memb
             Route::get('/barang/import', [BarangController::class, 'import']); // Ajax form upload excel
             Route::post('/barang/import_ajax', [BarangController::class, 'import_ajax']); // Ajax import excel
             Route::get('/barang/export_excel', [BarangController::class,'export_excel']); // Export excel
+            Route::get('/barang/export_pdf', [BarangController::class, 'export_pdf']); // export pdf
         });
         
     
