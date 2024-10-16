@@ -194,8 +194,14 @@ class LevelController extends Controller
         }
         return redirect('/');
     }
+      // Menampilkan detail level ajax
+      public function show_ajax(String $id) {
+        $level = LevelModel::find($id);
 
-    // 3. public function edit_ajax(string $id)
+        return view('level.show_ajax', ['level' => $level]);
+    }
+
+    //public function edit_ajax(string $id)
     public function edit_ajax(string $id)
     {
         $level = LevelModel::find($id);

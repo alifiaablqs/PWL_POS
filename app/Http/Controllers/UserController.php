@@ -220,6 +220,15 @@ class UserController extends Controller
         // Jika bukan request ajax, redirect ke halaman utama
         return redirect('/');
     }
+    
+    // Menampilkan detail user
+    public function show_ajax(String $id) {
+        $user = UserModel::with('level')->find($id);
+
+        return view('user.show_ajax', ['user' => $user]);
+    }
+
+
 
     // Menampilkan halaman form edit user ajax
     public function edit_ajax(string $id)

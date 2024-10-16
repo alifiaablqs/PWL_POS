@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\LevelModel;
 use App\Models\SupplierModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -177,52 +178,51 @@ class SupplierController extends Controller
 
     // 2. public function store_ajax(Request $request)
     public function store_ajax(Request $request)
-{
-    // cek apakah request berupa ajax
-    if ($request->ajax() || $request->wantsJson()) {
-        $rules = [
-            'supplier_kode'    => 'required|string|min:3|unique:m_supplier,supplier_kode',
-            'supplier_nama'    => 'required|string|max:100',
-            'supplier_alamat'  => 'required|string|max:100',
-            'supplier_notlp'   => 'nullable|string|max:20'
-        ];
-        // Validasi input
-        $validator = Validator::make($request->all(), $rules);
+    {
+        // cek apakah request berupa ajax
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                'supplier_kode'    => 'required|string|min:3|unique:m_supplier,supplier_kode',
+                'supplier_nama'    => 'required|string|max:100',
+                'supplier_alamat'  => 'required|string|max:100',
+                'supplier_notlp' => 'nullable|string|max:20'
+            ];
+            // use Illuminate\Support\Facades\Validator;
+            $validator = Validator::make($request->all(), $rules);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status'    => false, 
-                'message'   => 'Validasi Gagal',
-                'msgField'  => $validator->errors(),
-            ], 422); // 422 adalah status code untuk unprocessable entity (kesalahan validasi)
-        }
-
-        // Penanganan pengecualian saat penyimpanan
-        try {
-            SupplierModel::create($request->all()); // Simpan data
+            if ($validator->fails()) {
+                return response()->json([
+                    'status'    => false, // response status, false: error/gagal, true: berhasil
+                    'message'   => 'Validasi Gagal',
+                    'msgField'  => $validator->errors(), // pesan error validasi
+                ]);
+            }
+            SupplierModel::create($request->all());
             return response()->json([
                 'status'    => true,
                 'message'   => 'Data supplier berhasil disimpan'
             ]);
-        } catch (\Exception $e) {
-            // Jika ada error pada proses penyimpanan
-            return response()->json([
-                'status'    => false,
-                'message'   => 'Gagal menyimpan data: ' . $e->getMessage()
-            ], 500); // 500 adalah status code untuk kesalahan server
         }
+        redirect('/');
     }
 
-    return redirect('/'); // Jika request bukan AJAX
-    }
-
-    
     // 3. public function edit_ajax(string $id)
     public function edit_ajax(string $id)
     {
+        // Mengambil data user berdasarkan ID
+        $supplier = SupplierModel::find($id);
+
+
         $supplier = SupplierModel::find($id);
         return view('supplier.edit_ajax', ['supplier' => $supplier]);
     }
+
+    public function show_ajax(String $id) {
+        $supplier = SupplierModel::find($id);
+
+        return view('supplier.show_ajax', ['supplier' => $supplier]);
+    }
+
 
     // 4. public function update_ajax(Request $request, $id)
     public function update_ajax(Request $request, $id)

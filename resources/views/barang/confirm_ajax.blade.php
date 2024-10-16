@@ -3,9 +3,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Kesalahan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <div class="alert alert-danger">
@@ -17,16 +16,15 @@
         </div>
     </div>
 @else
-    <form action="{{ url('/barang/' . $barang->barang_id . '/delete_ajax') }}" method="POST" id="form-delete-barang">
+    <form action="{{ url('/barang/' . $barang->barang_id . '/delete_ajax') }}" method="POST" id="form-delete">
         @csrf
         @method('DELETE')
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Hapus Data Barang</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     <div class="alert alert-warning">
@@ -35,11 +33,15 @@
                     </div>
                     <table class="table table-sm table-bordered table-striped">
                         <tr>
-                            <th class="text-right col-3">Kode Barang :</th>
+                            <th class="text-right col-3">Kategori Barang :</th>
+                            <td class="col-9">{{ $barang->kategori->kategori_nama }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-3">Barang Kode :</th>
                             <td class="col-9">{{ $barang->barang_kode }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">Nama Barang :</th>
+                            <th class="text-right col-3">Barang Nama :</th>
                             <td class="col-9">{{ $barang->barang_nama }}</td>
                         </tr>
                         <tr>
@@ -61,7 +63,7 @@
     </form>
     <script>
         $(document).ready(function() {
-            $("#form-delete-barang").validate({
+            $("#form-delete").validate({
                 rules: {},
                 submitHandler: function(form) {
                     $.ajax({
