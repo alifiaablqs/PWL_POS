@@ -18,14 +18,14 @@
                     <small id="error-supplier_nama" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                    <label>Alamat Supplier</label>
+                    <label>Alamat Supplierr</label>
                     <input value="" type="text" name="supplier_alamat" id="supplier_alamat" class="form-control" required>
                     <small id="error-supplier_alamat" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label>No. Telepon</label>
-                    <input value="" type="text" name="supplier_notelp" id="supplier_notelp" class="form-control" required>
-                    <small id="error-supplier_notelp" class="error-text form-text text-danger"></small>
+                    <input value="" type="text" name="supplier_notlp" id="supplier_notlp" class="form-control" required>
+                    <small id="error-supplier_notlp" class="error-text form-text text-danger"></small>
                 </div>
             </div>
             <div class="modal-footer">
