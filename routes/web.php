@@ -39,6 +39,8 @@ Route::middleware(['auth'])->group(function() { // Semua route di bawah ini memb
         Route::get('/{id}/delete_ajax', [UserController::class, 'confirm_ajax']);
         Route::delete('/{id}/delete_ajax', [UserController::class, 'delete_ajax']);
         Route::delete('/{id}', [UserController::class, 'destroy']);
+
+        Route::get('/export_pdf', [UserController::class, 'export_pdf']);
     });
 
     // Route::group(['prefix' => 'level'], function () {
@@ -52,6 +54,8 @@ Route::middleware(['auth'])->group(function() { // Semua route di bawah ini memb
             Route::put('/level/{id}/update_ajax', [LevelController::class, 'update_ajax']); // menyimpan perubahan data level ajax
             Route::get('/level/{id}/confirm_ajax', [LevelController::class, 'confirm_ajax']); // untuk tampilan form confirm delete level ajax
             Route::delete('/level/{id}/delete_ajax', [LevelController::class, 'delete_ajax']); // menghapus data level ajax
+
+            Route::get('/level/export_pdf', [LevelController::class, 'export_pdf']);
     });
 
     
@@ -72,6 +76,8 @@ Route::middleware(['auth'])->group(function() { // Semua route di bawah ini memb
         Route::get('/{id}/confirm_ajax', [KategoriController::class, 'confirm_ajax']);     
         Route::delete('/{id}/delete_ajax', [KategoriController::class, 'delete_ajax']);
         Route::delete('/{id}', [KategoriController::class, 'destroy']);
+
+        Route::get('/export_pdf', [KategoriController::class, 'export_pdf']);
     });
 
     Route::group(['prefix' => 'supplier'], function () {
@@ -90,6 +96,8 @@ Route::middleware(['auth'])->group(function() { // Semua route di bawah ini memb
         Route::get('/{id}/delete_ajax', [SupplierController::class, 'confirm_ajax']); // untuk tampilkan form confirm delete supplier Ajax
         Route::delete('/{id}/delete_ajax', [SupplierController::class, 'delete_ajax']); // untuk hapus data supplier Ajax 
         Route::delete('/{id}', [SupplierController::class, 'destroy']);
+
+        Route::get('/export_pdf', [SupplierController::class, 'export_pdf']);
     });
 
     // Route::group(['prefix' => 'barang'], function () {

@@ -6,6 +6,7 @@
             <h3 class="card-title">{{ $page->title }}</h3>
             <div class="card-tools">
                 <a href="{{ url('kategori/create') }}" class="btn btn-sm btn-primary mt-1">Tambah</a>
+                <a href="{{ url('/kategori/export_pdf') }}" class="btn btn-warning"><i class="fa fa-file-pdf"></i> Export Kategori</a> 
                 <button onclick="modalAction(`{{ url('/kategori/create_ajax') }}`)" class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
             </div>
         </div>
