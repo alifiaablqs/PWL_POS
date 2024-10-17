@@ -338,12 +338,12 @@ class UserController extends Controller
     {
         $user = UserModel::select('user_id', 'level_id', 'username', 'nama')
             ->orderBy('level_id')
-            ->with('level') // Mengambil relasi level
+            ->with('level') 
             ->get();
-        // Gunakan Barryvdh\DomPDF\Facade\Pdf;
-        $pdf = Pdf::loadView('user.export_pdf', ['user' => $user]); // Pastikan view ini sesuai
-        $pdf->setPaper('a4', 'portrait'); // Set ukuran kertas dan orientasi
-        $pdf->setOption('isRemoteEnabled', true); // Set true jika ada gambar dari url
+
+        $pdf = Pdf::loadView('user.export_pdf', ['user' => $user]); 
+        $pdf->setPaper('a4', 'portrait'); 
+        $pdf->setOption('isRemoteEnabled', true); 
         $pdf->render();
         return $pdf->stream('Data_User_' . date("Y-m-d_H-i-s") . '.pdf');
     }
