@@ -1,6 +1,6 @@
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <style>
         body {
             font-family: "Times New Roman", Times, serif;
@@ -11,7 +11,8 @@
             width: 100%;
             border-collapse: collapse;
         }
-        td, th {
+        td,
+        th {
             padding: 4px 3px;
         }
         th {
@@ -50,58 +51,54 @@
         .border-bottom-header {
             border-bottom: 1px solid;
         }
-        .border-all, .border-all th, .border-all td {
+        .border-all,
+        .border-all th,
+        .border-all td {
             border: 1px solid;
         }
     </style>
 </head>
 <body>
     <table class="border-bottom-header">
-        <tr>
-        <td width="15%" class="text-center">
+    <tr>
+    <td width="15%" class="text-center">
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgOk1o9DKh__qOFazj2DSIJx7nP6Ei4C_eHA&s" alt="Logo" style="max-width: 100%; height: auto;">
-</td>
-<td width="85%"> 
-                <span class="text-center d-block font-11 font-bold mb-1">
-                    KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI
-                </span>
-                <span class="text-center d-block font-13 font-bold mb-1">
-                    POLITEKNIK NEGERI MALANG
-                </span>
-                <span class="text-center d-block font-10">
-                    Jl. Soekarno-Hatta No. 9 Malang 65141
-                </span>
-                <span class="text-center d-block font-10">
-                    Telepon (0341) 404424 Pes. 101-105, 0341-404420, Fax. (0341) 404420
-                </span>
-                <span class="text-center d-block font-10">
-                    Laman: www.polinema.ac.id
-                </span>
+    </td>
+    <td width="85%">
+                <span class="text-center d-block font-11 font-bold mb-1">KEMENTERIAN
+                    PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI</span>
+                <span class="text-center d-block font-13 font-bold mb-1">POLITEKNIK NEGERI
+                    MALANG</span>
+                <span class="text-center d-block font-10">Jl. Soekarno-Hatta No. 9 Malang
+                    65141</span>
+                <span class="text-center d-block font-10">Telepon (0341) 404424 Pes. 101-
+                    105, 0341-404420, Fax. (0341) 404420</span>
+                <span class="text-center d-block font-10">Laman: www.polinema.ac.id</span>
             </td>
         </tr>
     </table>
-    <h3 class="text-center">LAPORAN DATA SUPPLIER</h3>
-    <table class="border-all">
-        <thead>
-            <tr>
-                <th class="text-center">No</th>
-                <th>Kode Supplier</th>
-                <th>Nama Supplier</th>
-                <th>Alamat Supplier</th>
-                <th>Nomor Telepon Supplier</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($supplier as $s)
-            <tr>
-                <td class="text-center">{{ $loop->iteration }}</td>
-                <td>{{ $s->supplier_kode }}</td>
-                <td>{{ $s->supplier_nama }}</td>
-                <td>{{ $s->supplier_alamat }}</td>
-                <td>{{ $s->supplier_notlp}}</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <h3 class="text-center">LAPORAN DATA SUPPLIER</h4>
+        <table class="border-all">
+            <thead>
+                <tr>
+                    <th class="text-center">No</th>
+                    <th>Kode Supplier</th>
+                    <th>Nama Supplier</th>
+                    <th>Alamat Supplier</th>
+                    <th>No Telepon</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($supplier as $b)
+                    <tr>
+                        <td class="text-center">{{ $loop->iteration }}</td>
+                        <td>{{ $b->supplier_kode }}</td>
+                        <td>{{ $b->supplier_nama }}</td>
+                        <td>{{ $b->supplier_alamat }}</td>
+                        <td>{{ $b->supplier_notlp }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
 </body>
 </html>

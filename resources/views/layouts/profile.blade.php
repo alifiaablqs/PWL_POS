@@ -1,5 +1,4 @@
 @extends('layouts.template')
-
 @section('content')
 <div class="container my-0">
     <div class="row justify-content-center">
@@ -12,6 +11,7 @@
                     @if(session('status'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <strong>Success!</strong> {{ session('status') }}
+                            
                         </div>
                     @endif
                     
@@ -26,7 +26,6 @@
                                 <h5>{{ $user->nama }}</h5>
                             </div>
                         </div>
-
                         <div class="col-md-8">
                             <form method="POST" action="{{ route('profile.update', $user->user_id) }}" enctype="multipart/form-data">
                                 @method('PATCH')
@@ -43,7 +42,6 @@
                                         @enderror
                                     </div>
                                 </div>
-
                                 <div class="form-group row mb-3">
                                     <label for="nama" class="col-md-4 col-form-label text-md-end">{{ __('Nama') }}</label>
                                     <div class="col-md-7">
@@ -55,7 +53,6 @@
                                         @enderror
                                     </div>
                                 </div>
-
                                 <div class="form-group row mb-3">
                                     <label for="old_password" class="col-md-4 col-form-label text-md-end">{{ __('Password Lama') }}</label>
                                     <div class="col-md-7">
@@ -67,7 +64,6 @@
                                         @enderror
                                     </div>
                                 </div>
-
                                 <div class="form-group row mb-3">
                                     <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password Baru') }}</label>
                                     <div class="col-md-7">
@@ -79,21 +75,18 @@
                                         @enderror
                                     </div>
                                 </div>
-
                                 <div class="form-group row mb-3">
                                     <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
                                     <div class="col-md-7">
                                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
                                     </div>
                                 </div>
-
                                 <div class="form-group row mb-3">
                                     <label for="avatar" class="col-md-4 col-form-label text-md-end">{{ __('Ganti Foto Profil') }}</label>
                                     <div class="col-md-7">
                                         <input id="avatar" type="file" class="form-control" name="avatar">
                                     </div>
                                 </div>
-
                                 <div class="form-group row mb-0">
                                     <div class="col-md-8 offset-md-4">
                                         <button type="submit" class="btn btn-primary px-4 py-2">
@@ -104,7 +97,6 @@
                             </form>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

@@ -1,5 +1,4 @@
 <html>
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <style>
@@ -59,29 +58,26 @@
         }
     </style>
 </head>
-
 <body>
     <table class="border-bottom-header">
-        <tr>
-        <td width="15%" class="text-center">
+    <tr>
+    <td width="15%" class="text-center">
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgOk1o9DKh__qOFazj2DSIJx7nP6Ei4C_eHA&s" alt="Logo" style="max-width: 100%; height: auto;">
-</td>
-<td width="85%">
-
+    </td>
+    <td width="85%">
                 <span class="text-center d-block font-11 font-bold mb-1">KEMENTERIAN
                     PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI</span>
                 <span class="text-center d-block font-13 font-bold mb-1">POLITEKNIK NEGERI
                     MALANG</span>
                 <span class="text-center d-block font-10">Jl. Soekarno-Hatta No. 9 Malang
                     65141</span>
-                <span class="text-center d-block font-10">Telepon (0341) 404424 Pes. 101
+                <span class="text-center d-block font-10">Telepon (0341) 404424 Pes. 101-
                     105, 0341-404420, Fax. (0341) 404420</span>
                 <span class="text-center d-block font-10">Laman: www.polinema.ac.id</span>
             </td>
         </tr>
     </table>
-
-    <h3 class="text-center">LAPORAN DATA BARANG</h3>
+    <h3 class="text-center">LAPORAN DATA BARANG</h4>
         <table class="border-all">
             <thead>
                 <tr>
@@ -107,5 +103,4 @@
             </tbody>
         </table>
 </body>
-
 </html>
