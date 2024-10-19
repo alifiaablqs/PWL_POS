@@ -76,3 +76,4 @@ class ProfileController extends Controller
         return redirect()->back()->with('status', 'Profil berhasil diperbarui');
     }
 }
+
