@@ -189,12 +189,13 @@ class KategoriController extends Controller
         redirect('/');
     }
 
-    // Menampilkan detail kategori ajax
-    public function show_ajax(String $id) {
-        $kategori = KategoriModel::find($id);
-    
-        return view('kategori.show_ajax', ['kategori' => $kategori]);
-    }
+   // Menampilkan detail kategori ajax
+   public function show_ajax(String $id) {
+    $kategori = KategoriModel::find($id);
+
+    return view('kategori.show_ajax', ['kategori' => $kategori]);
+}
+
 
     // Menampilkan halaman form edit kategori ajax
     public function edit_ajax(String $id) {
@@ -265,6 +266,7 @@ class KategoriController extends Controller
         }
         return redirect('/');
     }
+    
     public function import()
     {
         return view('kategori.import');

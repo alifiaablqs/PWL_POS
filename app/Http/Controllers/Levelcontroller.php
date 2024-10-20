@@ -63,7 +63,7 @@ class LevelController extends Controller
         return DataTables::of($level)
             ->addIndexColumn() 
             ->addColumn('aksi', function ($level) { 
-                $btn = '<a href="' . url('/level/' . $level->level_id) . '" class="btn btn-info btn-sm">Detail</a> ';
+                $btn = '<button onclick="modalAction(\'' . url('/level/' . $level->level_id . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
                 $btn .= '<button onclick="modalAction(\'' . url('/level/' . $level->level_id . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
                 $btn .= '<button onclick="modalAction(\'' . url('/level/' . $level->level_id . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
                 return $btn;
@@ -132,6 +132,7 @@ class LevelController extends Controller
         redirect('/');
     }
 
+
     // Menampilkan detail level
     public function show(string $id)
     {
@@ -157,6 +158,12 @@ class LevelController extends Controller
 
         $activeMenu = 'level'; 
         return view('level.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'activeMenu' => $activeMenu]);
+    }
+
+    // Menampilkan detail level ajax
+    public function show_ajax(String $id) {
+        $level = LevelModel::find($id);
+        return view('level.show_ajax', ['level' => $level]);
     }
 
     public function edit_ajax(string $id)
