@@ -41,8 +41,7 @@
                         <th>ID</th>
                         <th>Username</th>
                         <th>Nama</th>
-                        <th>Level
-                            Pengguna</th>
+                        <th>Level Pengguna</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -73,7 +72,7 @@
                     }
                 },
                 columns: [{
-                    data: "level.level_id",
+                    data: "DT_RowIndex",
                     className: "text-center",
                     width: "5%",
                     orderable: false,

@@ -82,9 +82,9 @@
                     }
                 },
                 columns: [{
-                    data: "kategori.kategori_id",
+                    data: "DT_RowIndex",
                     className: "text-center",
-                    width: "10%",
+                    width: "5%",
                     orderable: false,
                     searchable: false
                 }, {

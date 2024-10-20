@@ -25,9 +25,10 @@
             <table class="table table-bordered table-sm table-striped table-hover" id="table-level">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Kode level</th>
-                        <th>Nama level</th>
+                        <th>ID</th>
+                        <th>Kode Level</th>
+                        <th>Nama Level</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -57,25 +58,33 @@
                         d.filter_kategori = $('.filter_kategori').val();
                     }
                 },
-                columns: [{
-                    data: "level_kode",
-                    className: "",
-                    width: "10%",
-                    orderable: true,
-                    searchable: true
-                }, {
-                    data: "level_nama",
-                    className: "",
-                    width: "37%",
-                    orderable: true,
-                    searchable: true,
-                }, {
-                    data: "aksi",
+                columns: [
+                {
+                    // nomor urut dari laravel datatable addIndexColumn()
+                    data: "DT_RowIndex", 
                     className: "text-center",
-                    width: "14%",
                     orderable: false,
                     searchable: false
-                }]
+                },
+                {
+                    data: "level_kode", 
+                    className: "",
+                    orderable: true, 
+                    searchable: true
+                },
+                {
+                    data: "level_nama", 
+                    className: "",
+                    orderable: true, 
+                    searchable: true
+                },
+                {
+                    data: "aksi", 
+                    className: "",
+                    orderable: false, 
+                    searchable: false
+                }
+            ]
             });
             $('#table-level_filter input').unbind().bind().on('keyup', function(e) {
                 if (e.keyCode == 13) { // enter key
