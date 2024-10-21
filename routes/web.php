@@ -10,6 +10,7 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StokController;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -141,6 +142,30 @@ Route::middleware(['auth'])->group(function() {
         Route::post('/stok/import_ajax', [StokController::class, 'import_ajax']);
         Route::get('/stok/export_excel', [StokController::class, 'export_excel']); //export excel
         Route::get('/stok/export_pdf', [StokController::class, 'export_pdf']); //export pdf
-    });    
+    });  
+    
+    //transaksi
+    Route::middleware(['authorize:ADM,MNG,STF'])->group(function () {
+        Route::group(['prefix' => 'transaksi'], function () {
+            Route::get('/', [TransaksiController::class, 'index']);
+            Route::post('/list', [TransaksiController::class, 'list']);
+            Route::get('/create', [TransaksiController::class, 'create']);
+            Route::post('/', [TransaksiController::class, 'store']);
+            Route::get('/create_ajax', [TransaksiController::class, 'create_ajax']);
+            Route::post('/ajax', [TransaksiController::class, 'store_ajax']);
+            Route::get('/{id}', [TransaksiController::class, 'show']);
+            Route::get('/{id}/edit', [TransaksiController::class, 'edit']);
+            Route::put('/{id}', [TransaksiController::class, 'update']);
+            Route::get('/{id}/show_ajax', [TransaksiController::class, 'show_ajax']);
+            Route::get('/{id}/edit_ajax', [TransaksiController::class, 'edit_ajax']);
+            Route::put('/{id}/update_ajax', [TransaksiController::class, 'update_ajax']);
+            Route::get('/{id}/delete_ajax', [TransaksiController::class, 'confirm_ajax']);
+            Route::delete('/{id}/delete_ajax', [TransaksiController::class, 'delete_ajax']);
+
+            Route::get('/export_pdf', [TransaksiController::class, 'export_pdf']);
+            Route::get('{id}/export_detail_pdf', [TransaksiController::class, 'export_detail_pdf']);
+            Route::delete('/{id}', [TransaksiController::class, 'destroy']);
+        });
+    });
 
 });
