@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Kesalahan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria label="Close"><span
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
@@ -11,7 +11,7 @@
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
                     Data yang anda cari tidak ditemukan
                 </div>
-                <a href="{{ url('/transaksi') }}" class="btn btn-warning">Kembali</a>
+                <a href="{{ url('/penjualan') }}" class="btn btn-warning">Kembali</a>
             </div>
         </div>
     </div>
@@ -22,8 +22,8 @@
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Transaksi</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria label="Close"><span
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Penjualan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
@@ -31,56 +31,31 @@
                         <h5><i class="icon fas fa-ban"></i> Konfirmasi !!!</h5>
                         Apakah Anda ingin menghapus data seperti di bawah ini?
                     </div>
-                    <table class="table table-bordered table-striped table-hover table-sm">
+                    <table class="table table-sm table-bordered table-striped">
                         <tr>
-                            <th>ID</th>
-                            <td>{{ $transaksi->penjualan_id }}</td>
+                            <th class="text-right col-3">Username:</th>
+                            <td class="col-9">{{ $transaksi->user->username }}</td>
                         </tr>
                         <tr>
-                            <th>User</th>
-                            <td>{{ $transaksi->user->nama }}</td>
+                            <th class="text-right col-3">Kode Penjualan :</th>
+                            <td class="col-9">{{ $transaksi->penjualan_kode }}</td>
                         </tr>
                         <tr>
-                            <th>Penjualan kode</th>
-                            <td>{{ $transaksi->penjualan_kode }}</td>
+                            <th class="text-right col-3">Nama Pembeli :</th>
+                            <td class="col-9">{{ $transaksi->pembeli }}</td>
                         </tr>
                         <tr>
-                            <th>Penjualan tanggal</th>
-                            <td>{{ $transaksi->penjualan_tanggal->format('Y-m-d') }}</td>
+                            <th class="text-right col-3">Tanggal Penjualan :</th>
+                            <td class="col-9">{{ $transaksi->penjualan_tanggal }}</td>
                         </tr>
                     </table>
-
-                    <div class="card m-1" style="position: relative; left: 0px; top: 0px;">
-                        <div class="card-header ui-sortable-handle" style="cursor: move;">
-                            <h3 class="card-title">
-                                <i class="ion ion-clipboard mr-1"></i>
-                                Detail Transaksi
-                            </h3>
-                        </div>
-
-                        <div class="card-body">
-                            <ul class="todo-list ui-sortable" data-widget="todo-list">
-                                @foreach ($transaksi->transaksiDetail as $detail)
-                                    <li id="detail-{{ $detail->detail_id }}">
-                                        <span class="text">{{ $detail->barang->barang_nama }}</span>
-
-                                        <small class="badge badge-secondary">
-                                            Jumlah {{ $detail->jumlah }}
-                                        </small>
-                                        <small class="badge badge-success">
-                                            Harga {{ number_format($detail->harga) }}
-                                        </small>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
-                        <button type="submit" class="btn btn-primary">Ya, Hapus</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
+                    <button type="submit" class="btn btn-primary">Ya, Hapus</button>
                 </div>
             </div>
+        </div>
     </form>
     <script>
         $(document).ready(function() {
@@ -99,7 +74,7 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                dataTransaksi.ajax.reload();
+                                tablePenjualan.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {

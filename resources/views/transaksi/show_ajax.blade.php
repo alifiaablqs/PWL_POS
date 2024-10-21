@@ -57,12 +57,15 @@
                                 <li id="detail-{{ $detail->detail_id }}">
                                     <span class="text">{{ $detail->barang->barang_nama }}</span>
 
-                                    <small class="badge badge-secondary">
+                                    <small class="badge badge-secondary" style="background-color: #FF9800;">
                                         Jumlah {{ $detail->jumlah }}
                                     </small>
-                                    <small class="badge badge-success">
+
+                                    <small class="badge badge-success" style="background-color: #205989;">
                                         Harga {{ number_format($detail->harga) }}
                                     </small>
+
+
                                 </li>
                             @endforeach
                         </ul>

@@ -15,13 +15,15 @@ class TransaksiDetailModel extends Model
 
     protected $fillable = ['penjualan_id', 'barang_id', 'harga', 'jumlah', 'created_at', 'updated_at'];
 
+    // Relasi ke tabel barang
     public function barang(): BelongsTo
     {
         return $this->belongsTo(BarangModel::class, 'barang_id', 'barang_id');
     }
 
+    // Relasi ke tabel penjualan (TransaksiModel)
     public function penjualan(): BelongsTo
     {
-        return $this->belongsTo(SupplierModel::class, 'penjualan_id', 'penjualan_id');
+        return $this->belongsTo(TransaksiModel::class, 'penjualan_id', 'penjualan_id');
     }
 }

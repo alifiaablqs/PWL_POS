@@ -49,97 +49,6 @@ class TransaksiController extends Controller
             ->make(true);
     }
 
-    public function create()
-    {
-        $breadcrumb = (object) [
-            'title' => 'Tambah Transaksi',
-            'list' => ['Home', 'Transaksi', 'Tambah']
-        ];
-
-        $page = (object) [
-            'title' => 'Tambah transaksi baru'
-        ];
-
-        $user = UserModel::all();
-        $barang = BarangModel::select('id_barang', 'nama_barang');
-        $activeMenu = 'transaksi';
-
-        return view('transaksi.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu, 'user' => $user, 'barang' => $barang]);
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'user_id' => 'required|integer',
-            'pembeli' => 'required|string|max:100',
-            'penjualan_kode' => 'required|string|max:20|min:3|unique:t_penjualan,penjualan_kode',
-            'penjualan_tanggal' => 'required|date',
-        ]);
-
-        TransaksiModel::create([
-            'user_id' => $request->user_id,
-            'pembeli' => $request->pembeli,
-            'penjualan_kode' => $request->penjualan_kode,
-            'penjualan_tanggal' => $request->penjualan_tanggal
-        ]);
-
-        return redirect('/transaksi')->with('success', 'Data transaksi berhasil disimpan');
-    }
-
-    public function show(string $id)
-    {
-        $transaksi = TransaksiModel::with(['transaksiDetail.barang', 'user'])->find($id);
-
-        $breadcrumb = (object) [
-            'title' => 'Detail Transaksi',
-            'list' => ['Home', 'Transaksi', 'Detail']
-        ];
-
-        $page = (object) [
-            'title' => 'Detail transaksi'
-        ];
-
-        $activeMenu = 'transaksi';
-
-        return view('transaksi.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'transaksi' => $transaksi, 'activeMenu' => $activeMenu]);
-    }
-
-    public function edit(string $id)
-    {
-        $transaksi = TransaksiModel::with(['transaksiDetail.barang', 'user'])->find($id);
-
-        $breadcrumb = (object) [
-            'title' => 'Edit Transaksi',
-            'list' => ['Home', 'Transaksi', 'Edit']
-        ];
-
-        $page = (object) [
-            'title' => 'Edit transaksi'
-        ];
-
-        $activeMenu = 'transaksi';
-
-        return view('transaksi.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'transaksi' => $transaksi, 'transaksi' => $transaksi, 'activeMenu' => $activeMenu]);
-    }
-
-    public function update(Request $request, string $id)
-    {
-        $request->validate([
-            'user_id' => 'required|integer',
-            'pembeli' => 'required|string|max:100',
-            'penjualan_kode' => 'required|string|max:20|min:3|unique:t_penjualan,penjualan_kode,' . $id . ',penjualan_id',
-            'penjualan_tanggal' => 'required|date',
-        ]);
-
-        TransaksiModel::find($id)->update([
-            'user_id' => $request->user_id,
-            'pembeli' => $request->pembeli,
-            'penjualan_kode' => $request->penjualan_kode,
-            'penjualan_tanggal' => $request->penjualan_tanggal
-        ]);
-
-        return redirect('/transaksi')->with('success', "Data transaksi berhasil diubah");
-    }
 
     public function destroy(string $id)
     {
@@ -147,15 +56,20 @@ class TransaksiController extends Controller
         if (!$check) {
             return redirect('/transaksi')->with('error', 'Data transaksi tidak ditemukan');
         }
-
+    
         try {
+            // Hapus detail transaksi terlebih dahulu
+            TransaksiDetailModel::where('penjualan_id', $id)->delete();
+    
+            // Setelah detail dihapus, hapus transaksi utama
             TransaksiModel::destroy($id);
-
+    
             return redirect('/transaksi')->with('success', 'Data transaksi berhasil dihapus');
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect('/transaksi')->with('error', 'Data transaksi gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
     }
+    
 
     public function show_ajax(string $id)
     {
@@ -302,25 +216,29 @@ class TransaksiController extends Controller
     }
 
     public function delete_ajax(Request $request, string $id)
-    {
-        if ($request->ajax() || $request->wantsJson()) {
-            $transaksi = TransaksiModel::find($id);
+{
+    if ($request->ajax() || $request->wantsJson()) {
+        $transaksi = TransaksiModel::find($id);
 
-            if ($transaksi) {
-                $transaksi->delete();
-                return response()->json([
-                    'status' => true,
-                    'message' => 'Data berhasil dihapus'
-                ]);
-            } else {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Data tidak ditemukan'
-                ]);
-            }
-            return redirect('/');
+        if ($transaksi) {
+            // Hapus semua detail transaksi terkait sebelum menghapus transaksi utama
+            TransaksiDetailModel::where('penjualan_id', $transaksi->penjualan_id)->delete();
+
+            $transaksi->delete();
+            return response()->json([
+                'status' => true,
+                'message' => 'Data berhasil dihapus'
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan'
+            ]);
         }
     }
+}
+
+
 
     public function export_pdf()
     {

@@ -23,10 +23,15 @@
                     <select name="barang_id" id="barang_id" class="form-control" required>
                         <option value="">- Pilih Barang -</option>
                         @foreach ($barang as $l)
-                            <option value="{{ $l->barang_id }}">{{ $l->barang_nama }}</option>
+                            <option value="{{ $l->barang_id }}" data-harga="{{ $l->harga }}">{{ $l->barang_nama }}</option>
                         @endforeach
                     </select>
                     <small id="error-barang_id" class="error-text form-text text-danger"></small>
+                </div>
+                <div class="form-group">
+                    <label>Harga Barang</label>
+                    <input type="text" name="harga_barang" id="harga_barang" class="form-control" readonly>
+                    <small id="error-harga_barang" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label>Nama Pengguna</label>
@@ -38,19 +43,14 @@
                     </select>
                     <small id="error-user_id" class="error-text form-text text-danger"></small>
                 </div>
-                {{-- <div class="form-group">
-                    <label>Nama Pengguna</label>
-                    <input value="{{ Auth::user()->nama }}" type="text" name="user_id" id="user_id" class="form-control" required readonly>
-                    <small id="error-user_id" class="error-text form-text text-danger"></small>
-                </div> --}}
                 <div class="form-group">
                     <label>Tanggal Stok</label>
-                    <input value="" type="date" name="stok_tanggal" id="stok_tanggal" class="form-control" required>
+                    <input type="date" name="stok_tanggal" id="stok_tanggal" class="form-control" required>
                     <small id="error-stok_tanggal" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label>Jumlah Stok</label>
-                    <input value="" type="text" name="stok_jumlah" id="stok_jumlah" class="form-control" required>
+                    <input type="text" name="stok_jumlah" id="stok_jumlah" class="form-control" required>
                     <small id="error-stok_jumlah" class="error-text form-text text-danger"></small>
                 </div>
             </div>
@@ -61,8 +61,16 @@
         </div>
     </div>
 </form>
+
 <script>
     $(document).ready(function() {
+        // Mengupdate harga barang saat dropdown barang berubah
+        $("#barang_id").change(function() {
+            var selectedOption = $(this).find('option:selected');
+            var harga = selectedOption.data('harga');
+            $("#harga_barang").val(harga);
+        });
+
         $("#form-tambah").validate({
             rules: {
                 supplier_id: {

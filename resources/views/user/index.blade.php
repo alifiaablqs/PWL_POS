@@ -83,19 +83,22 @@
                     width: "10%",
                     orderable: true,
                     searchable: true
-                }, {
+                }, 
+                {
                     data: "nama",
                     className: "",
-                    width: "37%",
+                    width: "30%",
                     orderable: true,
                     searchable: true,
-                }, {
+                },
+                {
                     data: "level.level_nama",
                     className: "",
-                    width: "14%",
+                    width: "15%",
                     orderable: true,
                     searchable: false
-                }, {
+                },
+                {
                     data: "aksi",
                     className: "text-center",
                     width: "14%",
