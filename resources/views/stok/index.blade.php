@@ -62,7 +62,7 @@
             },
             columns: [
                 {
-                    data:"DT_RowIndex",
+                    data: "stok_id",
                     className: "",
                     width: "10%",
                     orderable: true,
@@ -99,7 +99,7 @@
                 {
                     data: "aksi",
                     className: "",
-                    width: "14%",
+                    width: "%",
                     orderable: false,
                     searchable: false
                 }
