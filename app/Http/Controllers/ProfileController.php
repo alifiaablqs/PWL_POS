@@ -31,14 +31,14 @@ class ProfileController extends Controller
         // Validasi input dari form
         $this->validate($request, [
             'username' => 'required|string|min:3|unique:m_user,username,' . $id . ',user_id',
-            'nama' => 'required|string|max:100',
+            'nama_lengkap' => 'required|string|max:100',
             'old_password' => 'nullable|string',
             'password' => 'nullable|min:5',
         ]);
         // Ambil data user berdasarkan ID
         $user = UserModel::findOrFail($id);
         $user->username = $request->username;
-        $user->nama = $request->nama;
+        $user->nama_lengkap = $request->nama_lengkap;
         // Jika password lama diisi dan benar, ganti password
         if ($request->filled('old_password') && Hash::check($request->old_password, $user->password)) {
             $user->password = Hash::make($request->password);

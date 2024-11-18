@@ -49,6 +49,10 @@
                         <th class="text-right col-3">Harga Jual </th>
                         <td class="col-9">{{ $barang->harga_jual }}</td>
                     </tr>
+                    <tr>
+                        <th class="text-right col-3">Image </th>
+                        <td class="col-9">{{ $barang->image }}</td>
+                    </tr>
                     </table>
             </div>
             <div class="modal-footer">

@@ -123,7 +123,8 @@
                     width: "10%",
                     orderable: true,
                     searchable: false
-                }, {
+                },
+                {
                     data: "aksi",
                     className: "text-center",
                     width: "14%",

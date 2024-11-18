@@ -98,6 +98,7 @@
                     orderable: true,
                     searchable: false
                 },
+                
                 {
                     data: "aksi",
                     className: "text-center",

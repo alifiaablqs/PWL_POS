@@ -45,6 +45,10 @@
                         <th class="text-right col-3">Password </th>
                         <td class="col-9">********</td>
                     </tr>
+                    <tr>
+                        <th class="text-right col-3">Image </th>
+                        <td class="col-9">{{ $user->image }}</td>
+                    </tr>
                     </table>
             </div>
             <div class="modal-footer">
